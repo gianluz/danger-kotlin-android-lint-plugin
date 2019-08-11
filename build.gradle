@@ -11,6 +11,8 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation("io.reactivex.rxjava2:rxkotlin:2.4.0")
+    implementation project(':danger-kotlin-library')
 }
 
 compileKotlin {

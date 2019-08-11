@@ -1,2 +1,3 @@
-rootProject.name = 'danger-kotlin-android-lint-plugin'
-
+include ':danger-kotlin-android-lint-plugin'
+include ':danger-kotlin-library'
+project(':danger-kotlin-library').projectDir = new File(settingsDir, './kotlin/danger-kotlin-library')
