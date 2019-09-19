@@ -1,8 +1,8 @@
 package com.gianluz.danger.kotlin.android.lint.domain.model
 
-
 data class Issues(
-    val issues: List<Issue>
+    val issues: List<Issue>,
+    val version: String
 ) {
     data class Issue(
         val id: String,
@@ -18,7 +18,7 @@ data class Issues(
         val errorLine2: String,
         val location: Location
 
-        ) {
+    ) {
         data class Location(
             val file: String,
             val line: String,
