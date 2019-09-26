@@ -14,5 +14,4 @@ matrix:
         - cd kotlin
         - make install
         - cd ..
-        - gradle danger-kotlin-android-lint-plugin:test
         - DEBUG='*' danger-kotlin ci
