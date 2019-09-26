@@ -1,6 +1,7 @@
 package com.gianluz.danger.kotlin.android.lint.clean
 
 import com.gianluz.danger.kotlin.android.lint.domain.model.Issues
+import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
@@ -14,11 +15,11 @@ class GetLintsUseCase {
         val rootElement = document.documentElement
         val issues = arrayListOf<Issues.Issue>()
         val lintVersion = rootElement.getAttribute("by")
-        val childNodes = rootElement.childNodes
-        for (x in 0..childNodes.length) {
-            with(childNodes.item(x)) {
-                issues.add(
-                    Issues.Issue(
+        val elements = rootElement.getElementsByTagName("issue")
+        for (x in 0 until elements.length) {
+            with(elements.item(x) as Element) {
+                if(this.nodeType == Node.ELEMENT_NODE) {
+                    val issue = Issues.Issue(
                         id = getAttribute("id"),
                         severity = getAttribute("severity"),
                         message = getAttribute("message"),
@@ -32,7 +33,10 @@ class GetLintsUseCase {
                         errorLine2 = getAttribute("errorLine2"),
                         location = getLocation()
                     )
-                )
+                    issues.add(
+                        issue
+                    )
+                }
             }
         }
 
@@ -42,10 +46,10 @@ class GetLintsUseCase {
         )
     }
 
-    private fun Node.getAttribute(name: String) = attributes.getNamedItem(name).nodeValue
+    //private fun Node.getAttribute(name: String) = attributes.getNamedItem(name).nodeValue
 
-    private fun Node.getLocation(): Issues.Issue.Location {
-        return firstChild.attributes.run {
+    private fun Element.getLocation(): Issues.Issue.Location {
+        return (getElementsByTagName("location").item(0) as Element).run {
             Issues.Issue.Location(
                 file = getAttribute("file"),
                 line = getAttribute("line"),
