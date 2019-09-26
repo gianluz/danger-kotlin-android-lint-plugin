@@ -11,7 +11,8 @@ matrix:
         - sdk install kotlin
         - npm install -g danger@7.1.4
       script:
-        - ls
-        - make -C ./kotlin/Makefile install
+        - cd kotlin
+        - make install
+        - cd ..
         - gradle danger-kotlin-android-lint-plugin:test
         - DEBUG='*' danger-kotlin ci
