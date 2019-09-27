@@ -6,6 +6,7 @@
 
 import com.danger.dangerkotlin.*
 import org.jetbrains.kotlin.script.util.*
+import com.gianluz.danger.kotlin.android.lint.*
 
 val danger = Danger(args)
 
@@ -26,3 +27,6 @@ if (danger.git.createdFiles.size + danger.git.modifiedFiles.size - danger.git.de
 if (danger.github!!.pullRequest.title.contains("WIP" ,false)) {
     warn("PR is classed as Work in Progress")
 }
+
+val dangerLint = DangerLint()
+warn(dangerLint.scan())
