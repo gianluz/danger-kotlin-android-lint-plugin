@@ -14,6 +14,6 @@ matrix:
         - cd kotlin
         - make install
         - cd ..
-        - ./gradlew build
-        - ./gradlew publishToMavenLocal
+        - gradle build
+        - gradle publishToMavenLocal
         - DEBUG='*' danger-kotlin ci
