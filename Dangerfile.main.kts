@@ -1,8 +1,8 @@
 // Dangerfile.main.kts
 // Using external dependencies:
-@file:Repository("https://repo.maven.apache.org")
+//@file:Repository("https://repo.maven.apache.org")
 //@file:DependsOn("org.apache.commons:commons-text:1.6")
-@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.0.1-SNAPSHOT")
+@file:DependsOn("./build/libs/danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
 
 import com.danger.dangerkotlin.*
 import org.jetbrains.kotlin.script.util.*

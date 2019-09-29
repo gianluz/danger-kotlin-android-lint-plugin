@@ -1,7 +1,10 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.41'
     id 'maven-publish'
+    id 'signing'
 }
+
+apply from: file('maven-publish.gradle')
 
 group 'com.gianluz'
 version '0.0.1-SNAPSHOT'
@@ -12,7 +15,6 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
     implementation "commons-io:commons-io:2.6"
     implementation project(':danger-kotlin-library')
 
@@ -27,12 +29,4 @@ compileKotlin {
 
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
 }
