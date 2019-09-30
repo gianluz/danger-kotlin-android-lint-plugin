@@ -29,4 +29,4 @@ if (danger.github!!.pullRequest.title.contains("WIP" ,false)) {
 }
 
 val dangerLint = DangerLint()
-warn(dangerLint.report())
+dangerLint.report()
