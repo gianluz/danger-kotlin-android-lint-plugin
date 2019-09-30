@@ -33,6 +33,7 @@ class DangerLint {
     fun report(lintFile: String) {
         with(getLints(lintFile)) {
             var hasErrorsOrFatals = 0
+            warn(System.getProperty("user.dir"))
             issues.forEach {
                 if (it.severity == "Error" || it.severity == "Fatal") {
                     hasErrorsOrFatals++
