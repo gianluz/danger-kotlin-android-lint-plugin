@@ -38,7 +38,7 @@ class DangerLint {
                     hasErrorsOrFatals++
                 }
                 warn("${it.severity}: ${it.message}",
-                    File(it.location.file).relativeTo(File(System.getProperty("user.dir"))).path,
+                    it.location.file.replace(System.getProperty("user.dir"), ""),
                     Integer.parseInt(it.location.line)
                 )
             }
