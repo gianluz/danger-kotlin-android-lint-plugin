@@ -2,9 +2,11 @@
 // Using external dependencies:
 //@file:Repository("https://repo.maven.apache.org")
 //@file:DependsOn("org.apache.commons:commons-text:1.6")
+@file:DependsOn("./build/libs/danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
 
 import com.danger.dangerkotlin.*
 import org.jetbrains.kotlin.script.util.*
+import com.gianluz.danger.kotlin.android.lint.*
 
 val danger = Danger(args)
 
@@ -25,3 +27,6 @@ if (danger.git.createdFiles.size + danger.git.modifiedFiles.size - danger.git.de
 if (danger.github!!.pullRequest.title.contains("WIP" ,false)) {
     warn("PR is classed as Work in Progress")
 }
+
+val dangerLint = DangerLint()
+dangerLint.report("./build/resources/test/lint-results.xml")

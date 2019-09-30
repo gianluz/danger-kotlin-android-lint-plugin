@@ -1,0 +1,52 @@
+task sourceJar(type: Jar) {
+    classifier "sources"
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier "javadoc"
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+publishing {
+    repositories {
+        maven {
+            def releasesRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = 'Danger Kotlin Android Lint Plugin'
+                description = 'A plugin for Danger Kotlin for Android Lint'
+                url = "https://github.com/gianluz/danger-kotlin-android-lint-plugin"
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://github.com/gianluz/danger-kotlin-android-lint-plugin/blob/master/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'gianluz'
+                        name = 'Gianluca Zuddas'
+                        email = 'gianluca.zuddas@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.maven
+    }
+}
