@@ -29,4 +29,4 @@ if (danger.github!!.pullRequest.title.contains("WIP" ,false)) {
 }
 
 val dangerLint = DangerLint()
-dangerLint.report()
+dangerLint.report("./build/resources/test/lint-results.xml")
