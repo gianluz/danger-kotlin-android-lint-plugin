@@ -1,13 +1,15 @@
 package com.gianluz.danger.kotlin.android.lint
 
-import com.danger.dangerkotlin.FilePath
-import com.danger.dangerkotlin.warn
 import com.gianluz.danger.kotlin.android.lint.clean.GetLintsUseCase
 import org.apache.commons.io.FileUtils
 import java.io.File
 import org.apache.commons.io.filefilter.WildcardFileFilter
+import systems.danger.kotlin.sdk.DangerPlugin
 
-class DangerLint {
+object AndroidLint : DangerPlugin() {
+
+    override val id: String
+        get() = this.javaClass.name
 
     /**
      * @param projectDir the root project or module dir
@@ -37,12 +39,13 @@ class DangerLint {
                 if (it.severity == "Error" || it.severity == "Fatal") {
                     hasErrorsOrFatals++
                 }
-                warn("${it.severity}: ${it.message}",
+                context.warn(
+                    "${it.severity}: ${it.message}",
                     it.location.file,
                     Integer.parseInt(it.location.line)
                 )
             }
-            if(hasErrorsOrFatals>0) {
+            if (hasErrorsOrFatals > 0) {
                 error("Danger Kotlin Lint Plugin finished with $hasErrorsOrFatals errors")
             }
         }

@@ -8,6 +8,8 @@ import com.danger.dangerkotlin.*
 import org.jetbrains.kotlin.script.util.*
 import com.gianluz.danger.kotlin.android.lint.*
 
+register plugin AndroidLint
+
 val danger = Danger(args)
 
 val allSourceFiles = danger.git.modifiedFiles + danger.git.createdFiles
@@ -28,5 +30,4 @@ if (danger.github!!.pullRequest.title.contains("WIP" ,false)) {
     warn("PR is classed as Work in Progress")
 }
 
-val dangerLint = DangerLint()
-dangerLint.report("./build/resources/test/lint-results.xml")
+AndroidLint.report("./build/resources/test/lint-results.xml")
