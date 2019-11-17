@@ -7,7 +7,7 @@ import java.io.File
 data class Configuration(
     val logLevel: LogLevel = LogLevel.WARNING,
     val format: String = DEFAULT_FORMAT,
-    val failIf: Array<FailIf> = arrayOf(FailIf.Errors(1), FailIf.Fatals(1))
+    val failIf: Array<FailIf> = arrayOf(FailIf.Warnings(3),FailIf.Errors(1), FailIf.Fatals(1))
 ) {
     companion object {
         private const val DEFAULT_CONFIG = "androidlint.dangerplugin.yml"
