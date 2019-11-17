@@ -1,13 +1,14 @@
-package com.gianluz.danger.kotlin.android.lint.clean
+package com.gianluz.dangerkotlin.androidlint
 
-import com.gianluz.danger.kotlin.android.lint.domain.model.Issues
+import com.gianluz.dangerkotlin.androidlint.model.domain.Issues
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.File
 import javax.xml.parsers.DocumentBuilderFactory
 
-class GetLintsUseCase {
-    fun execute(filePath: String): Issues {
+internal object LintParser {
+
+    fun parse(filePath: String): Issues {
         val factory = DocumentBuilderFactory.newInstance()
         val builder = factory.newDocumentBuilder()
 
@@ -18,7 +19,7 @@ class GetLintsUseCase {
         val elements = rootElement.getElementsByTagName("issue")
         for (x in 0 until elements.length) {
             with(elements.item(x) as Element) {
-                if(this.nodeType == Node.ELEMENT_NODE) {
+                if (this.nodeType == Node.ELEMENT_NODE) {
                     val issue = Issues.Issue(
                         id = getAttribute("id"),
                         severity = getAttribute("severity"),
@@ -45,8 +46,6 @@ class GetLintsUseCase {
             lintVersion
         )
     }
-
-    //private fun Node.getAttribute(name: String) = attributes.getNamedItem(name).nodeValue
 
     private fun Element.getLocation(): Issues.Issue.Location {
         return (getElementsByTagName("location").item(0) as Element).run {

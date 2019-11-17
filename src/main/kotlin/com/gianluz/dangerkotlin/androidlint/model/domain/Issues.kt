@@ -1,4 +1,4 @@
-package com.gianluz.danger.kotlin.android.lint.domain.model
+package com.gianluz.dangerkotlin.androidlint.model.domain
 
 data class Issues(
     val issues: List<Issue>,

@@ -16,7 +16,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "commons-io:commons-io:2.6"
-    implementation project(':danger-kotlin-library')
+    implementation project(':danger-kotlin-sdk')
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'

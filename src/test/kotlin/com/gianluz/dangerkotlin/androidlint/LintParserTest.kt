@@ -1,18 +1,14 @@
-package com.gianluz.danger.kotlin.android.lint.clean
+package com.gianluz.dangerkotlin.androidlint
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
 
-
-
-class GetLintsUseCaseTest {
-
-    private val subject = GetLintsUseCase()
+class LintParserTest {
 
     @Test
     fun execute() {
-        val issues = subject.execute(getFilePathFromResources())
+        val issues = LintParser.parse(getFilePathFromResources())
         assertEquals(issues.version, "lint 3.4.0")
         assertEquals(issues.issues.size, 3)
         with(issues.issues[0]) {
@@ -26,12 +22,10 @@ class GetLintsUseCaseTest {
         } // etc.. TODO: write all assertions
     }
 
+    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun getFilePathFromResources(): String {
         val classLoader = javaClass.classLoader
         val file = File(classLoader.getResource("lint-results.xml").file)
-        val absolutePath = file.absolutePath
-
-        println(absolutePath)
-        return absolutePath
+        return file.absolutePath
     }
 }
