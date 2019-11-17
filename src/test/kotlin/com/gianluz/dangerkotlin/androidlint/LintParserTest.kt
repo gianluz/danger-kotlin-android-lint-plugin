@@ -1,14 +1,14 @@
-package com.gianluz.dangerkotlin.androidlint.clean
+package com.gianluz.dangerkotlin.androidlint
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
 
-class GetLintsUseCaseTest {
+class LintParserTest {
 
     @Test
     fun execute() {
-        val issues = GetLintsUseCase.execute(getFilePathFromResources())
+        val issues = LintParser.parse(getFilePathFromResources())
         assertEquals(issues.version, "lint 3.4.0")
         assertEquals(issues.issues.size, 3)
         with(issues.issues[0]) {

@@ -30,4 +30,4 @@ if (danger.github.pullRequest.title.contains("WIP" ,false)) {
     warn("PR is classed as Work in Progress")
 }
 
-AndroidLint.report("build/resources/test/lint-results.xml")
+AndroidLint.report("./build/resources/test/lint-results.xml")
