@@ -6,7 +6,7 @@
 
 import com.danger.dangerkotlin.*
 import org.jetbrains.kotlin.script.util.*
-import com.gianluz.danger.kotlin.android.lint.*
+import com.gianluz.dangerkotlin.androidlint.*
 
 register plugin AndroidLint
 
