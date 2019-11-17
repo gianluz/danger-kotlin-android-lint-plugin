@@ -14,7 +14,7 @@
         errorLine1="        targetSdkVersion 28"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~">
         <location
-            file="/Users/gianlucazuddas/Repos/test-danger-kotlin/app/build.gradle"
+            file="/home/travis/build/gianluz/danger-kotlin-android-lint-plugin/Dangerfile.main.kts"
             line="12"
             column="9"/>
     </issue>
@@ -32,7 +32,7 @@
         errorLine1="    &lt;application"
         errorLine2="     ~~~~~~~~~~~">
         <location
-            file="/Users/gianlucazuddas/Repos/test-danger-kotlin/app/src/main/AndroidManifest.xml"
+            file="/home/travis/build/gianluz/danger-kotlin-android-lint-plugin/Dangerfile.main.kts"
             line="5"
             column="6"/>
     </issue>
@@ -50,7 +50,7 @@
         errorLine1="    &lt;application"
         errorLine2="    ^">
         <location
-            file="/Users/gianlucazuddas/Repos/test-danger-kotlin/app/src/main/AndroidManifest.xml"
+            file="/home/travis/build/gianluz/danger-kotlin-android-lint-plugin/Dangerfile.main.kts"
             line="5"
             column="5"/>
     </issue>
