@@ -84,7 +84,7 @@ object AndroidLint : DangerPlugin() {
 
         }
     }
-    
+
     private fun handleFailure(min: Int, lints: List<Issues.Issue>, failureType: String) {
         if (lints.size >= min) {
             context.fail("Danger lint plugin failed with ${lints.size} $failureType")
