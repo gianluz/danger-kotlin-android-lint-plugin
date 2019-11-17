@@ -45,7 +45,7 @@ object AndroidLint : DangerPlugin() {
                 }
                 context.warn(
                     "${it.severity}: ${it.message}",
-                    it.location.file,
+                    it.location.file.replace(System.getProperty("user.dir"), ""),
                     Integer.parseInt(it.location.line)
                 )
             }
@@ -62,7 +62,7 @@ object AndroidLint : DangerPlugin() {
                 issue.severity.asLogLevel().ordinal >= configuration.logLevel.ordinal
             }.forEach { issue ->
                 val message = configuration.messageFormat.format(issue)
-                context.warn(message, issue.location.file, issue.location.line.asInt())
+                context.warn(message, issue.location.file.replace(System.getProperty("user.dir"), ""), issue.location.line.asInt())
             }
 
             configuration.failIf.forEach {
@@ -84,7 +84,7 @@ object AndroidLint : DangerPlugin() {
 
         }
     }
-
+    
     private fun handleFailure(min: Int, lints: List<Issues.Issue>, failureType: String) {
         if (lints.size >= min) {
             context.fail("Danger lint plugin failed with ${lints.size} $failureType")
