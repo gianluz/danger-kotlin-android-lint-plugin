@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.File
-import java.lang.IllegalArgumentException
 
 class ConfigurationParserTest {
 
@@ -18,7 +17,7 @@ class ConfigurationParserTest {
 
     @Test
     fun testYaml_fail() {
-        assertThrows<IllegalArgumentException> {
+        assertThrows<Exception> {
             ConfigurationParser.parse(getFilePathFromResources(FAIL))
         }
     }
@@ -39,9 +38,9 @@ class ConfigurationParserTest {
     }
 
     private companion object {
-        private const val SUCCESS = "test.yaml"
-        private const val FAIL = "testfail.yaml"
-        private const val NON_NULLS = "testnonnulls.yaml"
+        private const val SUCCESS = "test.yml"
+        private const val FAIL = "testfail.yml"
+        private const val NON_NULLS = "testnonnulls.yml"
     }
 
 }
