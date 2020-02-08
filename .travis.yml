@@ -3,9 +3,8 @@ matrix:
   include:
     - os: linux
       sudo: required
-      dist: trusty
+      dist: xenial
       install:
-        - curl -s "https://get.sdkman.io" | bash
         - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
         - source ~/.bash_profile
       script:
