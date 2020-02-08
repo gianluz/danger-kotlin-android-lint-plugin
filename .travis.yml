@@ -1,10 +1,13 @@
 language: java
 matrix:
   include:
-    - os: osx
-      osx_image: xcode10
+    - os: linux
+      sudo: required
+      dist: trusty
       install:
+        - curl -s "https://get.sdkman.io" | bash
         - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
         - source ~/.bash_profile
       script:
+        - gradle danger-kotlin-library:test
         - DEBUG='*' danger-kotlin ci
