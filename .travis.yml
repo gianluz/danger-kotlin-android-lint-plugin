@@ -5,8 +5,14 @@ matrix:
       sudo: required
       dist: xenial
       install:
-        - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
+        - curl -s "https://get.sdkman.io" | bash
         - source ~/.bash_profile
+        - sdk install gradle
+        - sdk install kotlin
+        - npm install -g danger@7.1.4
       script:
-        - gradle danger-kotlin-library:test
-        - danger-kotlin ci
+        - cd kotlin
+        - make install
+        - cd ..
+        - gradle build
+        - DEBUG='*' danger-kotlin ci
