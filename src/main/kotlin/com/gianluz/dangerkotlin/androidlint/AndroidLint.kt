@@ -12,7 +12,7 @@ object AndroidLint : DangerPlugin() {
         get() = this.javaClass.name
 
     private val configuration by lazy {
-        Configuration.fromFile()
+        ConfigurationParser.parse("")
     }
 
     /**
@@ -36,25 +36,6 @@ object AndroidLint : DangerPlugin() {
      * Write the default report provided by danger kotlin android lint plugin
      * @param lintFile the lint report file path
      */
-    fun oldReport(lintFile: String) {
-        with(getLints(lintFile)) {
-            var hasErrorsOrFatals = 0
-            issues.forEach {
-                if (it.severity == "Error" || it.severity == "Fatal") {
-                    hasErrorsOrFatals++
-                }
-                context.warn(
-                    "${it.severity}: ${it.message}",
-                    it.location.file.replace(System.getProperty("user.dir"), ""),
-                    Integer.parseInt(it.location.line)
-                )
-            }
-            if (hasErrorsOrFatals > 0) {
-                context.fail("Danger Kotlin Lint Plugin finished with $hasErrorsOrFatals errors")
-            }
-        }
-    }
-
     fun report(lintFile: String) {
         with(getLints(lintFile)) {
 

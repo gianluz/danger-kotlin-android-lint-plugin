@@ -2,23 +2,14 @@ package com.gianluz.dangerkotlin.androidlint
 
 import com.gianluz.dangerkotlin.androidlint.MessageFormat.Companion.DEFAULT_FORMAT
 import com.gianluz.dangerkotlin.androidlint.model.domain.Issues
+import org.yaml.snakeyaml.Yaml
 import java.io.File
 
 data class Configuration(
     val logLevel: LogLevel = LogLevel.WARNING,
     val format: String = DEFAULT_FORMAT,
-    val failIf: Array<FailIf> = arrayOf(FailIf.Warnings(3),FailIf.Errors(1), FailIf.Fatals(1))
+    val failIf: Array<FailIf> = arrayOf(FailIf.Warnings(3), FailIf.Errors(1), FailIf.Fatals(1))
 ) {
-    companion object {
-        private const val DEFAULT_CONFIG = "androidlint.dangerplugin.yml"
-
-        @JvmStatic
-        fun fromFile(file: String = DEFAULT_CONFIG): Configuration {
-            return if (File(file).exists()) {
-                Configuration()
-            } else Configuration()
-        }
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
