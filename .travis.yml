@@ -9,4 +9,4 @@ matrix:
         - source ~/.bash_profile
       script:
         - gradle danger-kotlin-library:test
-        - DEBUG='*' danger-kotlin ci
+        - danger-kotlin ci
