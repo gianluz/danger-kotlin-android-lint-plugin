@@ -2,7 +2,6 @@ package com.gianluz.dangerkotlin.androidlint
 
 import org.yaml.snakeyaml.Yaml
 import java.io.File
-import java.io.FileInputStream
 
 object ConfigurationParser {
 
@@ -12,8 +11,19 @@ object ConfigurationParser {
 
         val logLevel = LogLevel.valueOf(config["logLevel"] as String)
         val format = config["format"] as String
-        val failIf = config["failIf"] as Array<*>
+        val failIf = config["failIf"] as Map<*, *>
 
-        return Configuration(logLevel, format)
+        val failIfList = failIf.map { entry ->
+            val value = entry.value as Int
+            when (entry.key as String) {
+                "warnings" -> FailIf.Warnings(value)
+                "errors" -> FailIf.Errors(value)
+                "fatals" -> FailIf.Fatals(value)
+                "total" -> FailIf.Total(value)
+                else -> null
+            }
+        }
+
+        return Configuration(logLevel, format, failIfList.filterNotNull().toTypedArray())
     }
 }

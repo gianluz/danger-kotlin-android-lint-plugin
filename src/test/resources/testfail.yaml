@@ -1,0 +1,6 @@
+logLevel: GNEGNE
+formatt: "{severities}: {message}"
+failIffo:
+  w: 3
+  e: 1
+  f: 1

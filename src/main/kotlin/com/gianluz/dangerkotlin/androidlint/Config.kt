@@ -2,8 +2,6 @@ package com.gianluz.dangerkotlin.androidlint
 
 import com.gianluz.dangerkotlin.androidlint.MessageFormat.Companion.DEFAULT_FORMAT
 import com.gianluz.dangerkotlin.androidlint.model.domain.Issues
-import org.yaml.snakeyaml.Yaml
-import java.io.File
 
 data class Configuration(
     val logLevel: LogLevel = LogLevel.WARNING,
