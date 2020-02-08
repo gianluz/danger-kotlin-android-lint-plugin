@@ -1,11 +1,6 @@
-// Dangerfile.df.kts
-// Using external dependencies:
-//@file:Repository("https://repo.maven.apache.org")
-//@file:DependsOn("org.apache.commons:commons-text:1.6")
 @file:DependsOn("./build/libs/danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
 
-import systems.danger.dangerkotlin.*
-import com.gianluz.dangerkotlin.androidlint.*
+import systems.danger.kotlin.*
 
 register plugin AndroidLint
 
