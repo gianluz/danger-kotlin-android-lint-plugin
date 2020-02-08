@@ -10,6 +10,7 @@ matrix:
         - sdk install gradle
         - sdk install kotlin
         - npm install -g danger@7.1.4
+        - sudo chmod -R a+rwx /usr/local/
       script:
         - cd kotlin
         - make install
