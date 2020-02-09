@@ -12,7 +12,7 @@ object AndroidLint : DangerPlugin() {
         get() = this.javaClass.name
 
     private val configuration by lazy {
-        ConfigurationParser.parse("")
+        ConfigurationParser.parse("androidlint.dangerplugin.yml")
     }
 
     /**
