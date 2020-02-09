@@ -21,6 +21,10 @@ publishing {
             def snapshotsRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
         }
+        ivy {
+            // change to point to your repo, e.g. http://my.org/repo
+            url = "${System.getProperty("user.home")}/.ivy2/local"
+        }
     }
     publications {
         maven(MavenPublication) {
@@ -43,6 +47,10 @@ publishing {
                     }
                 }
             }
+        }
+
+        ivy(IvyPublication) {
+            from components.java
         }
     }
 }
