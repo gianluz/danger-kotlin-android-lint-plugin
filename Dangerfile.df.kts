@@ -1,15 +1,18 @@
-//@file:DependsOn("./build/libs/danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
-//@file:Repository("https://repo.maven.apache.org")
-@file:DependsOn("org.apache.commons:commons-text:1.6")
+//@file:DependsOn("org.apache.commons:commons-text:1.6")
+//@file:Repository(url="file:///build/libs")
+//@file:DependsOn("/Users/gianlucazuddas/Repos/danger-kotlin-android-lint-plugin/build/libs/danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
+//@file:DependsOn("com/gianluz/danger-kotlin-android-lint-plugin/0.0.1-SNAPSHOT/danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
 //@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.0.1-SNAPSHOT")
+//@file:DependsOn("danger-kotlin-android-lint-plugin-0.0.1-SNAPSHOT.jar")
 
-import org.apache.commons.lang3.StringUtils
+import org.jetbrains.kotlin.script.util.*
 import systems.danger.kotlin.*
+//import com.gianluz.dangerkotlin.androidlint.AndroidLint
 
 //register plugin AndroidLint
 
 val danger = Danger(args)
 
-//AndroidLint.report("./build/resources/test/lint-results.xml")
+warn("Test")
 
-StringUtils.capitalize("wee")
+//AndroidLint.report("./build/resources/test/lint-results.xml")
