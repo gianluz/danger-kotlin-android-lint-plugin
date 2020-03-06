@@ -17,6 +17,7 @@ matrix:
         - cd kotlin
         - make install
         - cd ..
+        - gradle wrapper
         - ./gradlew build
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
