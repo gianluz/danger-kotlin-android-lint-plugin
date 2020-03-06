@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
+    }
+}
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.70'
     id 'maven-publish'
@@ -6,6 +18,13 @@ plugins {
 }
 
 apply from: file('maven-publish.gradle')
+apply plugin: 'com.github.johnrengelman.shadow'
+
+apply from: file('shadow.gradle')
+
+shadowJar {
+    baseName = 'danger-kotlin-android-lint-plugin'
+}
 
 group 'com.gianluz'
 version '0.0.1-SNAPSHOT'
@@ -15,10 +34,10 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "commons-io:commons-io:2.6"
-    implementation "org.yaml:snakeyaml:1.21"
-    implementation project(':danger-kotlin-sdk')
+    provided "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    includeRecursiveJar "commons-io:commons-io:2.6"
+    includeRecursiveJar "org.yaml:snakeyaml:1.21"
+    provided project(':danger-kotlin-sdk')
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
