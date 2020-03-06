@@ -21,6 +21,15 @@ publishing {
             def snapshotsRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
         }
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/gianluz/danger-kotlin-android-lint-plugin")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+
         ivy {
             // change to point to your repo, e.g. http://my.org/repo
             url = "${System.getProperty("user.home")}/.ivy2/local"
@@ -30,7 +39,7 @@ publishing {
         maven(MavenPublication) {
             from components.java
             pom {
-                name = 'Danger Kotlin Android Lint Plugin'
+                name = 'Danger Kotlin - Android Lint Plugin'
                 description = 'A plugin for Danger Kotlin for Android Lint'
                 url = "https://github.com/gianluz/danger-kotlin-android-lint-plugin"
                 licenses {

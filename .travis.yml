@@ -35,3 +35,11 @@ matrix:
         - ./gradlew build
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
+deploy:
+  provider: script
+  script: ./gradlew publish
+  skip_cleanup: true
+  on:
+    repo: gianluz/danger-kotlin-android-lint-plugin
+    tags: true
+    jdk: oraclejdk8
