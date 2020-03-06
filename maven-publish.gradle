@@ -50,6 +50,9 @@ publishing {
         }
 
         ivy(IvyPublication) {
+            organisation = 'com.gianluz'
+            module = 'danger-kotlin-android-lint-plugin'
+            revision = '0.0.1-SNAPSHOT'
             from components.java
         }
     }

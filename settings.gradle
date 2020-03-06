@@ -1,4 +1,3 @@
 include ':danger-kotlin-android-lint-plugin'
-include ':danger-kotlin-library'
 include ':danger-kotlin-sdk'
 project(':danger-kotlin-sdk').projectDir = new File(settingsDir, './kotlin/danger-kotlin-sdk')
