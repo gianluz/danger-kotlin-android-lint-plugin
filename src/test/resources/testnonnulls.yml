@@ -2,6 +2,6 @@ logLevel: WARNING
 format: "{severity}: {message}"
 failIf:
   warnings: 3
-  errors: 1
-  fatals: 1
-  total: 3
+  errrors: 1
+  fattals: 1
+  tottal: 3

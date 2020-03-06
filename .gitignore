@@ -25,3 +25,6 @@ hs_err_pid*
 .idea/*
 build
 .gradle/
+
+# Danger
+danger_out.json
