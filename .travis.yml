@@ -1,11 +1,25 @@
 language: java
-jdk:
-  - oraclejdk13
 matrix:
   include:
+    - os: osx
+      osx_image: xcode11
+      install:
+        - curl -s "https://get.sdkman.io" | bash
+        - source ~/.bash_profile
+        - sdk install gradle
+        - sdk install kotlin
+        - npm install -g danger@7.1.4
+      script:
+        - cd kotlin
+        - make install
+        - cd ..
+        - gradle wrapper
+        - ./gradlew build
+        - ./gradlew shadowJar
+        - DEBUG='*' danger-kotlin ci
     - os: linux
       sudo: required
-      dist: xenial
+      dist: trusty
       install:
         - curl -s "https://get.sdkman.io" | bash
         - source ~/.bash_profile
