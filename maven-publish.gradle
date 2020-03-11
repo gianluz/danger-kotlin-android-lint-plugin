@@ -1,3 +1,5 @@
+apply from: 'secrets.gradle'
+
 task sourceJar(type: Jar) {
     classifier "sources"
     from sourceSets.main.allJava
@@ -17,27 +19,30 @@ artifacts {
 publishing {
     repositories {
         maven {
-            def releasesRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-            def snapshotsRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            name = "Sonatype"
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = loadSecret("SONATYPE_USERNAME")
+                password = loadSecret("SONATYPE_PASSWORD")
+            }
         }
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/gianluz/danger-kotlin-android-lint-plugin")
             credentials {
-                username = System.getenv("GITHUB_USERNAME")
-                password = System.getenv("GITHUB_TOKEN")
+                username = loadSecret("GITHUB_PACKAGES_USERNAME")
+                password = loadSecret("GITHUB_PACKAGES_PASSWORD")
             }
-        }
-
-        ivy {
-            // change to point to your repo, e.g. http://my.org/repo
-            url = "${System.getProperty("user.home")}/.ivy2/local"
         }
     }
     publications {
         maven(MavenPublication) {
             from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
             pom {
                 name = 'Danger Kotlin - Android Lint Plugin'
                 description = 'A plugin for Danger Kotlin for Android Lint'
@@ -55,14 +60,12 @@ publishing {
                         email = 'gianluca.zuddas@gmail.com'
                     }
                 }
+                scm {
+                    connection = 'scm:git:git://github.com/gianluz/danger-kotlin-android-lint-plugin.git'
+                    developerConnection = 'scm:git:ssh://github.com/gianluz/danger-kotlin-android-lint-plugin.git'
+                    url = 'https://github.com/gianluz/danger-kotlin-android-lint-plugin'
+                }
             }
-        }
-
-        ivy(IvyPublication) {
-            organisation = 'com.gianluz'
-            module = 'danger-kotlin-android-lint-plugin'
-            revision = '0.0.1-SNAPSHOT'
-            from components.java
         }
     }
 }

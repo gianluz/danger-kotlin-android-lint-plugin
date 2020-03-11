@@ -37,7 +37,7 @@ matrix:
         - DEBUG='*' danger-kotlin ci
 deploy:
   provider: script
-  script: ./gradlew publish
+  script: openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in secret.asc.enc -out secret.asc -d; ./gradlew publish
   skip_cleanup: true
   on:
     repo: gianluz/danger-kotlin-android-lint-plugin

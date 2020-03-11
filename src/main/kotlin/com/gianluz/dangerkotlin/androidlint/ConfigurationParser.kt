@@ -3,7 +3,7 @@ package com.gianluz.dangerkotlin.androidlint
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 
-object ConfigurationParser {
+internal object ConfigurationParser {
 
     fun parse(file: String): Configuration {
         val yaml = Yaml()
