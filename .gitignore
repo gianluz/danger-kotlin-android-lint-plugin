@@ -31,3 +31,4 @@ danger_out.json
 
 # Secrets
 secrets.properties
+secret.asc
