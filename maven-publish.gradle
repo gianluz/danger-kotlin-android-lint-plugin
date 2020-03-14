@@ -10,10 +10,9 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives jar
-    archives sourceJar
-    archives javadocJar
+signing {
+    useGpgCmd()
+    sign publishing.publications
 }
 
 publishing {
@@ -37,11 +36,17 @@ publishing {
             }
         }
     }
+
     publications {
         maven(MavenPublication) {
             from components.java
             artifact sourceJar {
                 classifier "sources"
+                from sourceSets.main.allJava
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+                from javadoc.destinationDir
             }
             pom {
                 name = 'Danger Kotlin - Android Lint Plugin'
@@ -65,6 +70,15 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com/gianluz/danger-kotlin-android-lint-plugin.git'
                     url = 'https://github.com/gianluz/danger-kotlin-android-lint-plugin'
                 }
+            }
+        }
+    }
+
+    gradle.taskGraph.whenReady { taskGraph ->
+        if (taskGraph.allTasks.any { it instanceof Sign }) {
+            allprojects {
+                ext."signing.gnupg.keyName" = loadSecret("GPG_KEY_ID")
+                ext."signing.gnupg.passphrase" = loadSecret("GPG_KEY_PASSWORD_SECRET")
             }
         }
     }
