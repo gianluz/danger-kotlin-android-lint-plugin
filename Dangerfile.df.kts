@@ -1,7 +1,6 @@
 //@file:CompilerOptions("-jvm-target", "1.8")
 //Uses a fatjar in local
-@file:Repository("https://oss.sonatype.org/content/repositories/snapshots/")
-@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.0.1-SNAPSHOT")
+@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.0.1")
 
 import com.gianluz.dangerkotlin.androidlint.AndroidLint
 import systems.danger.kotlin.*
