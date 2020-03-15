@@ -1,3 +1,5 @@
+apply from: 'secrets.gradle'
+
 task sourceJar(type: Jar) {
     classifier "sources"
     from sourceSets.main.allJava
@@ -8,29 +10,46 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives jar
-    archives sourceJar
-    archives javadocJar
+signing {
+    useGpgCmd()
+    sign publishing.publications
 }
 
 publishing {
     repositories {
         maven {
-            def releasesRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-            def snapshotsRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            name = "Sonatype"
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = loadSecret("SONATYPE_USERNAME")
+                password = loadSecret("SONATYPE_PASSWORD")
+            }
         }
-        ivy {
-            // change to point to your repo, e.g. http://my.org/repo
-            url = "${System.getProperty("user.home")}/.ivy2/local"
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/gianluz/danger-kotlin-android-lint-plugin")
+            credentials {
+                username = loadSecret("GITHUB_PACKAGES_USERNAME")
+                password = loadSecret("GITHUB_PACKAGES_PASSWORD")
+            }
         }
     }
+
     publications {
         maven(MavenPublication) {
             from components.java
+            artifact sourceJar {
+                classifier "sources"
+                from sourceSets.main.allJava
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+                from javadoc.destinationDir
+            }
             pom {
-                name = 'Danger Kotlin Android Lint Plugin'
+                name = 'Danger Kotlin - Android Lint Plugin'
                 description = 'A plugin for Danger Kotlin for Android Lint'
                 url = "https://github.com/gianluz/danger-kotlin-android-lint-plugin"
                 licenses {
@@ -46,14 +65,21 @@ publishing {
                         email = 'gianluca.zuddas@gmail.com'
                     }
                 }
+                scm {
+                    connection = 'scm:git:git://github.com/gianluz/danger-kotlin-android-lint-plugin.git'
+                    developerConnection = 'scm:git:ssh://github.com/gianluz/danger-kotlin-android-lint-plugin.git'
+                    url = 'https://github.com/gianluz/danger-kotlin-android-lint-plugin'
+                }
             }
         }
+    }
 
-        ivy(IvyPublication) {
-            organisation = 'com.gianluz'
-            module = 'danger-kotlin-android-lint-plugin'
-            revision = '0.0.1-SNAPSHOT'
-            from components.java
+    gradle.taskGraph.whenReady { taskGraph ->
+        if (taskGraph.allTasks.any { it instanceof Sign }) {
+            allprojects {
+                ext."signing.gnupg.keyName" = loadSecret("GPG_KEY_ID")
+                ext."signing.gnupg.passphrase" = loadSecret("GPG_KEY_PASSWORD_SECRET")
+            }
         }
     }
 }

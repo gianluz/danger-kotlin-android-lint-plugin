@@ -3,7 +3,7 @@ package com.gianluz.dangerkotlin.androidlint
 import com.gianluz.dangerkotlin.androidlint.MessageFormat.Companion.DEFAULT_FORMAT
 import com.gianluz.dangerkotlin.androidlint.model.domain.Issues
 
-data class Configuration(
+internal data class Configuration(
     val logLevel: LogLevel = LogLevel.WARNING,
     val format: String = DEFAULT_FORMAT,
     val failIf: Array<FailIf> = arrayOf(FailIf.Warnings(3), FailIf.Errors(1), FailIf.Fatals(1))
