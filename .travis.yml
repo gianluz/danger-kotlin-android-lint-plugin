@@ -1,4 +1,12 @@
 language: java
+deploy:
+  provider: script
+  script: openssl aes-256-cbc -K $encrypted_d8011ea95b1b_key -iv $encrypted_d8011ea95b1b_iv -in secret.asc.enc -out secret.asc -d; ./gradlew publish
+  on:
+    repo: gianluz/danger-kotlin-android-lint-plugin
+    tags: true
+    all_branches: true
+    jdk: oraclejdk8
 matrix:
   include:
     - os: osx
@@ -35,11 +43,3 @@ matrix:
         - ./gradlew build
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
-deploy:
-  provider: script
-  script: openssl aes-256-cbc -K $encrypted_d8011ea95b1b_key -iv $encrypted_d8011ea95b1b_iv -in secret.asc.enc -out secret.asc -d; ./gradlew publish
-  skip_cleanup: true
-  on:
-    repo: gianluz/danger-kotlin-android-lint-plugin
-    tags: true
-    jdk: oraclejdk8
