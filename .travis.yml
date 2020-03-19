@@ -21,14 +21,13 @@ jobs:
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
     - stage: Build & Deploy
-      if: type != pull_request
-      install:
+      if: tag IS present
+      before_deploy:
         - curl -s "https://get.sdkman.io" | bash
         - source ~/.bash_profile
         - sdk install gradle
         - sdk install kotlin
         - gradle wrapper
-      script:
         - ./gradlew build
         - ./gradlew test
       deploy:
