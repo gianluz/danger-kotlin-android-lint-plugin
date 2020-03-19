@@ -20,7 +20,7 @@ jobs:
         - ./gradlew build
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
-    - stage: Deploy
+    - stage: Build & Deploy
       if: type != pull_request
       install:
         - curl -s "https://get.sdkman.io" | bash
