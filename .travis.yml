@@ -1,33 +1,12 @@
 language: java
+os: linux
+dist: trusty
+sudo: required
+
 jobs:
   include:
-    - deploy:
-        provider: surge
-        script: bash scripts/deploy.sh
-        on:
-          repo: gianluz/danger-kotlin-android-lint-plugin
-          tags: true
-          all_branches: true
-          jdk: oraclejdk8
-    - os: osx
-      osx_image: xcode11.2
-      install:
-        - curl -s "https://get.sdkman.io" | bash
-        - source ~/.bash_profile
-        - sdk install gradle
-        - sdk install kotlin
-        - npm install -g danger@7.1.4
-      script:
-        - cd kotlin
-        - make install
-        - cd ..
-        - gradle wrapper
-        - ./gradlew build
-        - ./gradlew shadowJar
-        - DEBUG='*' danger-kotlin ci
-    - os: linux
-      sudo: required
-      dist: trusty
+    - stage: Build
+      if: type = pull_request
       install:
         - curl -s "https://get.sdkman.io" | bash
         - source ~/.bash_profile
@@ -43,3 +22,13 @@ jobs:
         - ./gradlew build
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
+    - stage: Deploy
+      if: type != pull_request
+      deploy:
+        provider: script
+        script: bash scripts/deploy.sh
+        on:
+          repo: gianluz/danger-kotlin-android-lint-plugin
+          tags: true
+          all_branches: true
+          jdk: oraclejdk8
