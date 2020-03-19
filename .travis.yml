@@ -27,6 +27,7 @@ jobs:
         - source ~/.bash_profile
         - sdk install gradle
         - sdk install kotlin
+        - sdk install gpg2
       script:
         - gradle wrapper
         - ./gradlew build
