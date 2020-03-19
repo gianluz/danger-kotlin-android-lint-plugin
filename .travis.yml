@@ -31,7 +31,6 @@ jobs:
       script:
         - ./gradlew build
         - ./gradlew test
-        - ./gradlew signMavenPublication
       deploy:
         provider: script
         script: chmod +x scripts/deploy.sh && bash scripts/deploy.sh
