@@ -32,8 +32,8 @@ jobs:
         - ./gradlew build
         - ./gradlew test
       deploy:
-        provider: script
-        script: chmod +x scripts/deploy.sh && bash scripts/deploy.sh
-        on:
-          tags: true
-          jdk: oraclejdk8
+        - provider: script
+          script: chmod +x scripts/deploy.sh && bash scripts/deploy.sh
+          on:
+            tags: true
+            jdk: oraclejdk8
