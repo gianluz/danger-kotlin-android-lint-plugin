@@ -24,11 +24,16 @@ jobs:
         - DEBUG='*' danger-kotlin ci
     - stage: Deploy
       if: type != pull_request
+      install:
+        - curl -s "https://get.sdkman.io" | bash
+        - source ~/.bash_profile
+        - sdk install gradle
+        - sdk install kotlin
       deploy:
         provider: script
-        script: bash scripts/deploy.sh
+        script: chmod +x scripts/deploy.sh && bash scripts/deploy.sh
         on:
           repo: gianluz/danger-kotlin-android-lint-plugin
           tags: true
-          all_branches: true
+          all_branches: false
           jdk: oraclejdk8
