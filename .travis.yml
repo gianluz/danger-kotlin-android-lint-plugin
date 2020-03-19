@@ -35,7 +35,5 @@ jobs:
         provider: script
         script: chmod +x scripts/deploy.sh && bash scripts/deploy.sh
         on:
-          repo: gianluz/danger-kotlin-android-lint-plugin
           tags: true
-          all_branches: false
           jdk: oraclejdk8
