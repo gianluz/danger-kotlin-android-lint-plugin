@@ -1,8 +1,6 @@
 language: java
 os: linux
 dist: trusty
-sudo: required
-
 jobs:
   include:
     - stage: Build
@@ -29,6 +27,11 @@ jobs:
         - source ~/.bash_profile
         - sdk install gradle
         - sdk install kotlin
+        - gradle wrapper
+      script:
+        - ./gradlew build
+        - ./gradlew test
+        - ./gradlew signMavenPublication
       deploy:
         provider: script
         script: chmod +x scripts/deploy.sh && bash scripts/deploy.sh
