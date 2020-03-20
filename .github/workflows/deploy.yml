@@ -33,7 +33,7 @@ jobs:
         gpg2 --version
         echo "$GPG_KEY_SECRET" > secret.key
         echo "Importing GPG Key..."
-        gpg2 --import --batch secret.key &> /dev/null
+        gpg2 --import --batch secret.key
         echo "[ OK ] GPG Key imported"
         rm secret.key
     - name: Nexus Deploy
