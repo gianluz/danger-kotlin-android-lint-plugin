@@ -26,7 +26,15 @@ jobs:
       with:
         java-version: 1.8
     - name: Install gpg2
-      run: sudo apt-get install gnupg2 -y
+      run:  |
+        sudo apt-get install gnupg2 -y
+        gpg2 --version
+    - name: Import GPG key
+      env:
+        GPG_KEY_SECRET: ${{ secrets.GPG_KEY_SECRET }}
+      run : |
+        echo $GPG_KEY_SECRET > secret.key && gpg2 --import --batch secret.key
+        rm secret.key
     - name: Nexus Deploy
       env:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
@@ -36,7 +44,4 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        gpg2 --version
-        echo "Current directory:"
-        pwd
         gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository --stacktrace
