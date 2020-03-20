@@ -26,7 +26,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Install gpg2
-      run: sudo apt-get install gpg2
+      run: sudo apt-get install gnupg2 -y
     - name: Nexus Deploy
       env:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
