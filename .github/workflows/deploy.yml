@@ -30,5 +30,4 @@ jobs:
         GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         GPG_KEY_PASSWORD_SECRET: ${{ secrets.GPG_KEY_PASSWORD_SECRET }}
       run: |
-        gradle wrapper
-        ./gradlew publishMavenPublicationToSonatypeRepository
+        gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository
