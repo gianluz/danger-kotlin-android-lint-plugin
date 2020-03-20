@@ -25,7 +25,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Install gpg2
+    - name: Install GNUPG2
       run:  |
         sudo apt-get install gnupg2 -y
         gpg2 --version
@@ -33,7 +33,8 @@ jobs:
       env:
         GPG_KEY_SECRET: ${{ secrets.GPG_KEY_SECRET }}
       run : |
-        echo $GPG_KEY_SECRET > secret.key && gpg2 --import --batch secret.key
+        echo "$GPG_KEY_SECRET" > secret.key
+        gpg2 --import --batch secret.key &> /dev/null
         rm secret.key
     - name: Nexus Deploy
       env:
@@ -44,4 +45,4 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository --stacktrace
+        gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository
