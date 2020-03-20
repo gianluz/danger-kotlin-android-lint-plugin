@@ -32,6 +32,7 @@ jobs:
         sudo apt-get install gnupg2 -y
         gpg2 --version
         echo "$GPG_KEY_SECRET" > secret.key
+        echo "Wc output: `wc -c < secret.key`"
         echo "Importing GPG Key..."
         gpg2 --import --batch secret.key
         echo "[ OK ] GPG Key imported"
