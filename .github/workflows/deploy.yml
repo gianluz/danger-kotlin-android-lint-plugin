@@ -27,14 +27,14 @@ jobs:
         java-version: 1.8
     - name: Install GNUPG2 & Import Key
       env:
-        GPG_KEY_SECRET: ${{ secrets.GPG_KEY_SECRET }}
+        GPG_KEY_PRIVATE: ${{ secrets.GPG_KEY_PRIVATE }}
       run : |
         sudo apt-get install gnupg2 -y
         gpg2 --version
-        echo '${{ secrets.GPG_KEY_SECRET }}' > secret.key
+        echo "$GPG_KEY_PRIVATE" > secret.key
         echo "Wc output: `wc -c < secret.key`"
         echo "Importing GPG Key..."
-        gpg2 --import --batch secret.key
+        gpg2 --import --batch secret.key &> /dev/null
         echo "[ OK ] GPG Key imported"
         rm secret.key
     - name: Nexus Deploy
