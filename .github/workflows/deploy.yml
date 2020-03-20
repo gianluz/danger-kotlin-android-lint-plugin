@@ -34,4 +34,4 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository
+        gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository --stacktrace
