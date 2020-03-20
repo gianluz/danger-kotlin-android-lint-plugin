@@ -25,6 +25,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install gpg2
+      run: sudo apt-get install gpg2
     - name: Nexus Deploy
       env:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
@@ -34,7 +36,6 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        alias gpg2='gpg'
         gpg2 --version
         echo "Current directory:"
         pwd
