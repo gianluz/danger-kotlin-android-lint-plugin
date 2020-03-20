@@ -28,7 +28,6 @@ jobs:
         - sdk install gradle
         - sdk install kotlin
       script:
-        - echo ${{ secrets.TEST_SECRET }}
         - gradle wrapper
         - ./gradlew build
         - ./gradlew test

@@ -8,5 +8,5 @@ openssl aes-256-cbc -K $encrypted_d8011ea95b1b_key -iv $encrypted_d8011ea95b1b_i
 if test -f "$FILE_DECRYPTED"; then
     echo "$FILE_ENCRYPTED was decrypted"
     echo "Publishing artifacts..."
-    ./gradlew publish
+    ./gradlew publishMavenPublicationToSonatypeRepository
 fi
