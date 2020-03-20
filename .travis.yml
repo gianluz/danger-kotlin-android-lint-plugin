@@ -28,7 +28,7 @@ jobs:
         - sdk install gradle
         - sdk install kotlin
       script:
-        - git config --global gpg.program gpg2
+        - echo ${{ secrets.TEST_SECRET }}
         - gradle wrapper
         - ./gradlew build
         - ./gradlew test
