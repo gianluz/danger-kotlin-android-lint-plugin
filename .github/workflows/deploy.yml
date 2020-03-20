@@ -34,6 +34,5 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        gpg --version
-        gpg2 --version
+        alias gpg2='gpg'
         gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository --stacktrace
