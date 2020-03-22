@@ -32,12 +32,11 @@ jobs:
         sudo apt-get install gnupg2 -y
         gpg2 --version
         echo "$GPG_KEY_PRIVATE" > secret.key
-        echo "Wc output: `wc -c < secret.key`"
         echo "Importing GPG Key..."
         gpg2 --import --batch secret.key &> /dev/null
-        echo "[ OK ] GPG Key imported"
+        echo "[ OK ] GPG Key imported."
         rm secret.key
-    - name: Nexus Deploy
+    - name: Deploy
       env:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
@@ -47,4 +46,4 @@ jobs:
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
         gradle wrapper
-        ./gradlew publishMavenPublicationToSonatypeRepository
+        ./gradlew publish
