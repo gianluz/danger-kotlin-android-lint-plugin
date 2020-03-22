@@ -46,4 +46,5 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        gradle wrapper && ./gradlew publishMavenPublicationToSonatypeRepository
+        chmod +x scripts/deploy.sh
+        bash deploy.sh
