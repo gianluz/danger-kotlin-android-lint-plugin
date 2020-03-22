@@ -35,7 +35,7 @@ jobs:
         gpg2 --import --batch secret.key &> /dev/null
         echo "[ OK ] GPG Key imported."
         rm secret.key
-    - name: Deploy
+    - name: Deploy & Release
       env:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
