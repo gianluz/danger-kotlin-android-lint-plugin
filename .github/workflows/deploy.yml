@@ -46,5 +46,7 @@ jobs:
         GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
         GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
+        pwd
+        ls
         chmod +x scripts/deploy.sh
         bash deploy.sh
