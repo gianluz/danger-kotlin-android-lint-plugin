@@ -15,6 +15,12 @@ signing {
     sign publishing.publications
 }
 
+nexusStaging {
+    username = loadSecret("SONATYPE_USERNAME")
+    password = loadSecret("SONATYPE_PASSWORD")
+    delayBetweenRetriesInMillis = 5000
+}
+
 publishing {
     repositories {
         maven {
