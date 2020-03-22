@@ -49,4 +49,4 @@ jobs:
         pwd
         ls
         chmod +x scripts/deploy.sh
-        bash deploy.sh
+        bash scripts/deploy.sh
