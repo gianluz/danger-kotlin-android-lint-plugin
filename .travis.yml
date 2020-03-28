@@ -1,6 +1,6 @@
 language: java
 os: linux
-dist: trusty
+dist: xenial
 jobs:
   include:
     - stage: Build
@@ -8,7 +8,6 @@ jobs:
       install:
         - curl -s "https://get.sdkman.io" | bash
         - source ~/.bash_profile
-        - sdk install gradle
         - sdk install kotlin
         - npm install -g danger
         - sudo chmod -R a+rwx /usr/local/
