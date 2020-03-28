@@ -13,4 +13,4 @@ jobs:
         - gradle wrapper
         - ./gradlew build
         - ./gradlew shadowJar
-        - DEBUG='*' danger-kotlin ci
+        - danger-kotlin ci
