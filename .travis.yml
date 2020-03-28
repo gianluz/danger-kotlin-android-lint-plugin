@@ -9,6 +9,7 @@ jobs:
         - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
         - source ~/.bash_profile
       script:
+        - danger-kotlin --version
         - gradle wrapper
         - ./gradlew build
         - ./gradlew shadowJar
