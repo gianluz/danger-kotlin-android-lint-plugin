@@ -6,7 +6,7 @@ jobs:
     - stage: Build
       if: type = pull_request
       install:
-        - npm install -g danger
+        - npm install -g danger@7.1.4
         - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
         - source ~/.bash_profile
       script:
