@@ -1,17 +1,22 @@
 language: java
 os: linux
-dist: xenial
+dist: trusty
 jobs:
   include:
     - stage: Build
       if: type = pull_request
       install:
-        - npm install -g danger@7.1.4
-        - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
+        - curl -s "https://get.sdkman.io" | bash
         - source ~/.bash_profile
+        - sdk install gradle
+        - sdk install kotlin
+        - npm install -g danger@7.1.4
+        - sudo chmod -R a+rwx /usr/local/
       script:
-        - danger-kotlin --version
+        - cd kotlin
+        - make install
+        - cd ..
         - gradle wrapper
         - ./gradlew build
         - ./gradlew shadowJar
-        - danger-kotlin ci
+        - DEBUG='*' danger-kotlin ci
