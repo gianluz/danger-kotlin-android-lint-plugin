@@ -1,3 +1,0 @@
-[submodule "kotlin"]
-	path = kotlin
-	url = https://github.com/danger/kotlin.git

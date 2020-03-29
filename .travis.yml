@@ -1,35 +1,16 @@
 language: java
 os: linux
-dist: trusty
+dist: bionic
+jdk: openjdk12
 jobs:
   include:
     - stage: Build
       if: type = pull_request
       install:
-        - curl -s "https://get.sdkman.io" | bash
+        - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/release/0.4.0/scripts/install.sh)
         - source ~/.bash_profile
-        - sdk install gradle
-        - sdk install kotlin
-        - npm install -g danger@7.1.4
-        - sudo chmod -R a+rwx /usr/local/
       script:
-        - cd kotlin
-        - make install
-        - cd ..
         - gradle wrapper
         - ./gradlew build
         - ./gradlew shadowJar
         - DEBUG='*' danger-kotlin ci
-    - stage: Build & Deploy
-      if: tag IS present
-      install:
-        - curl -s "https://get.sdkman.io" | bash
-        - source ~/.bash_profile
-        - sdk install gradle
-        - sdk install kotlin
-      script:
-        - git config --global gpg.program gpg2
-        - gradle wrapper
-        - ./gradlew build
-        - ./gradlew test
-        - chmod +x scripts/deploy.sh && bash scripts/deploy.sh

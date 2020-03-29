@@ -1,13 +1,16 @@
 package com.gianluz.dangerkotlin.androidlint
 
-import org.yaml.snakeyaml.Yaml
+import org.snakeyaml.engine.v2.api.Load
+import org.snakeyaml.engine.v2.api.LoadSettings
 import java.io.File
 
 internal object ConfigurationParser {
 
+    @Suppress("UNCHECKED_CAST")
     fun parse(file: String): Configuration {
-        val yaml = Yaml()
-        val config: Map<String, Any> = yaml.load(File(file).inputStream())
+        val loadSettings = LoadSettings.builder().build()
+        val load = Load(loadSettings)
+        val config: Map<String, Any> = load.loadFromInputStream(File(file).inputStream()) as Map<String, Any>
 
         val logLevel = LogLevel.valueOf(config["logLevel"] as String)
         val format = config["format"] as String

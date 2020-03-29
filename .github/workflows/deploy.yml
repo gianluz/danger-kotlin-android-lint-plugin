@@ -1,33 +1,39 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy
 
-# Controls when the action will run. Triggers the workflow on push or pull request 
-# events but only for the master branch
 on:
   push:
     tags:
     - '*'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Nexus Deploy
+    - name: Install GNUPG2 & Import Key
+      env:
+        GPG_KEY_PRIVATE: ${{ secrets.GPG_KEY_PRIVATE }}
+      run : |
+        sudo apt-get install gnupg2 -y
+        gpg2 --version
+        echo "$GPG_KEY_PRIVATE" > secret.key
+        echo "Importing GPG Key..."
+        gpg2 --import --batch secret.key &> /dev/null
+        echo "[ OK ] GPG Key imported."
+        rm secret.key
+    - name: Deploy & Release
       env:
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         GPG_KEY_PASSWORD_SECRET: ${{ secrets.GPG_KEY_PASSWORD_SECRET }}
+        GITHUB_PACKAGES_USERNAME: ${{ secrets.GITHUB_PACKAGES_USERNAME }}
+        GITHUB_PACKAGES_PASSWORD: ${{ secrets.GITHUB_PACKAGES_PASSWORD }}
       run: |
-        ./gradlew publishMavenPublicationToSonatypeRepository
+        gradle wrapper
+        ./gradlew publish
+        ./gradlew closeAndReleaseRepository
