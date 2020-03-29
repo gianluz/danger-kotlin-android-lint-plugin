@@ -35,9 +35,9 @@ repositories {
 
 dependencies {
     provided "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    provided "systems.danger:danger-kotlin-sdk:1.0"
     includeRecursiveJar "commons-io:commons-io:2.6"
     includeRecursiveJar "org.snakeyaml:snakeyaml-engine:2.1"
-    provided project(':danger-kotlin-sdk')
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
