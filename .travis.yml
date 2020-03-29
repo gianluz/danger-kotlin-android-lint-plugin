@@ -7,15 +7,9 @@ jobs:
     - stage: Build
       if: type = pull_request
       install:
-        - curl -s "https://get.sdkman.io" | bash
+        - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
         - source ~/.bash_profile
-        - sdk install kotlin
-        - npm install -g danger
-        - sudo chmod -R a+rwx /usr/local/
       script:
-        - cd kotlin
-        - make install
-        - cd ..
         - gradle wrapper
         - ./gradlew build
         - ./gradlew shadowJar
