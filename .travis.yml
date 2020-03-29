@@ -1,7 +1,7 @@
 language: java
 os: linux
 dist: bionic
-jdk: oraclejdk11
+jdk: oraclejdk7
 jobs:
   include:
     - stage: Build
