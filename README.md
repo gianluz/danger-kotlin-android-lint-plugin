@@ -1,9 +1,11 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.gianluz/danger-kotlin-android-lint-plugin.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.gianluz%22%20AND%20a:%22danger-kotlin-android-lint-plugin%22)
 [![Build Status](https://travis-ci.org/gianluz/danger-kotlin-android-lint-plugin.svg?branch=master)](https://travis-ci.org/gianluz/danger-kotlin-android-lint-plugin)
 # danger-kotlin-android-lint-plugin
+
 Show the Android lint errors on your PR with [Danger Kotlin]
 
 ##Setup
+
 Install and run [Danger Kotlin] as normal and in your `Dangerfile.df.kts` add the following dependency:
 ```kotlin
 @file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.0.3")
@@ -19,6 +21,7 @@ AndroidLint.report("/path/to/the/androidlint/result/file.xml")
 You can report more than one lint file.
 
 ##Configuration
+
 You can customise the aspect of your reports defining the configuration file `androidlint.dangerplugin.yml`
 ```yaml
 logLevel: WARNING
@@ -31,6 +34,7 @@ failIf:
 ```
 
 ####Accepted values are:
+
 | **SETTING**  | **DESCRIPTION**                                                                                                                                   |                **DEFAULT**                | **ACCEPTED VALUES**                                                                                                                |
 |----------|-----------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------:|--------------------------------------------------------------------------------------------------------------------------------|
 | `logLevel` | Report all the lints with `severity` >= `logLevel`                                                                                                | `WARNING`                               | `WARNING, ERROR, FATAL`                                                                                                          |
