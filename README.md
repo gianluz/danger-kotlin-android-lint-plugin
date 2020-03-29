@@ -4,7 +4,7 @@
 
 Show the Android lint errors on your PR with [Danger Kotlin]
 
-##Setup
+## Setup
 
 Install and run [Danger Kotlin] as normal and in your `Dangerfile.df.kts` add the following dependency:
 ```kotlin
@@ -20,7 +20,7 @@ AndroidLint.report("/path/to/the/androidlint/result/file.xml")
 ```
 You can report more than one lint file.
 
-##Configuration
+## Configuration
 
 You can customise the aspect of your reports defining the configuration file `androidlint.dangerplugin.yml`
 ```yaml
@@ -33,7 +33,7 @@ failIf:
   total: 3
 ```
 
-####Accepted values are:
+#### Accepted values are:
 
 | **SETTING**  | **DESCRIPTION**                                                                                                                                   |                **DEFAULT**                | **ACCEPTED VALUES**                                                                                                                |
 |----------|-----------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------:|--------------------------------------------------------------------------------------------------------------------------------|
