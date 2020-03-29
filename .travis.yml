@@ -7,7 +7,7 @@ jobs:
     - stage: Build
       if: type = pull_request
       install:
-        - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/master/scripts/install.sh)
+        - bash <(curl -s https://raw.githubusercontent.com/danger/kotlin/release/0.4.0/scripts/install.sh)
         - source ~/.bash_profile
       script:
         - gradle wrapper
