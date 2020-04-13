@@ -30,6 +30,14 @@ class ConfigurationParserTest {
         assertEquals(LogLevel.WARNING, config.logLevel)
     }
 
+    @Test
+    fun testYaml_missingConfigurationFile() {
+        val config = ConfigurationParser.parse("doesnotexists.yml")
+        assertEquals(3, config.failIf.size)
+        assertEquals("{severity}: {message}", config.format)
+        assertEquals(LogLevel.WARNING, config.logLevel)
+    }
+
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun getFilePathFromResources(testConf: String): String {
         val classLoader = javaClass.classLoader

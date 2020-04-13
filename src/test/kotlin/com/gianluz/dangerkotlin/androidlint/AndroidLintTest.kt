@@ -33,7 +33,7 @@ class AndroidLintTest {
             context.warn("Error: message", "file", 1)
             context.warn("Warning: message", "file", 1)
             context.warn("Warning: message", "file", 1)
-            context.fail("Danger lint plugin failed with 1 errors")
+            context.fail("danger-kotlin-android-lint-plugin failed with 1 errors")
         }
     }
 
@@ -64,7 +64,38 @@ class AndroidLintTest {
             context.warn("Error: message", "file", 1)
             context.warn("Warning: message", "file", 1)
             context.warn("Warning: message", "file", 1)
-            context.fail("Danger lint plugin failed with 3 total lints")
+            context.fail("danger-kotlin-android-lint-plugin failed with 3 total lints")
+        }
+    }
+
+    @Test
+    fun givenTotalFailuresConfiguration_whenReportOnMultipleFiles_thenFailsWithThreeTotals() {
+        givenTotalFailuresConfiguration()
+
+        AndroidLint.report(ANY_TEST_LINT_FILE, ANY_TEST_LINT_FILE)
+
+        verify(ordering = Ordering.ORDERED) {
+            context.warn("Error: message", "file", 1)
+            context.warn("Warning: message", "file", 1)
+            context.warn("Warning: message", "file", 1)
+            context.warn("Error: message", "file", 1)
+            context.warn("Warning: message", "file", 1)
+            context.warn("Warning: message", "file", 1)
+            context.fail("danger-kotlin-android-lint-plugin failed with 6 total lints")
+        }
+    }
+
+    @Test
+    fun givenTotalFailuresConfigurationAndDuplicates_whenReportDistinct_thenFailsWithThreeTotals() {
+        givenTotalFailuresConfiguration()
+
+        AndroidLint.reportDistinct(ANY_TEST_LINT_FILE, ANY_TEST_LINT_FILE)
+
+        verify(ordering = Ordering.ORDERED) {
+            context.warn("Error: message", "file", 1)
+            context.warn("Warning: message", "file", 1)
+            context.warn("Warning: message", "file", 1)
+            context.fail("danger-kotlin-android-lint-plugin failed with 3 total lints")
         }
     }
 
@@ -76,7 +107,7 @@ class AndroidLintTest {
 
         verify(ordering = Ordering.ORDERED) {
             context.warn("Error: message", "file", 1)
-            context.fail("Danger lint plugin failed with 1 errors")
+            context.fail("danger-kotlin-android-lint-plugin failed with 1 errors")
         }
     }
 
@@ -128,7 +159,7 @@ class AndroidLintTest {
                     Issues.Issue.Location("file", "1", "1")
                 ),
                 Issues.Issue(
-                    "abc",
+                    "abcd",
                     "Warning",
                     "message",
                     "category",
@@ -142,7 +173,7 @@ class AndroidLintTest {
                     Issues.Issue.Location("file", "1", "1")
                 ),
                 Issues.Issue(
-                    "abc",
+                    "abcde",
                     "Warning",
                     "message",
                     "category",

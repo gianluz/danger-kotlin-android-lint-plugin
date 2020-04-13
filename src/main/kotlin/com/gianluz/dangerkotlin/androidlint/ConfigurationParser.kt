@@ -3,6 +3,7 @@ package com.gianluz.dangerkotlin.androidlint
 import org.snakeyaml.engine.v2.api.Load
 import org.snakeyaml.engine.v2.api.LoadSettings
 import java.io.File
+import java.io.FileNotFoundException
 
 internal object ConfigurationParser {
 
@@ -10,7 +11,11 @@ internal object ConfigurationParser {
     fun parse(file: String): Configuration {
         val loadSettings = LoadSettings.builder().build()
         val load = Load(loadSettings)
-        val config: Map<String, Any> = load.loadFromInputStream(File(file).inputStream()) as Map<String, Any>
+        val config: Map<String, Any> = try {
+            load.loadFromInputStream(File(file).inputStream()) as Map<String, Any>
+        } catch (exception: FileNotFoundException) {
+            return Configuration()
+        }
 
         val logLevel = LogLevel.valueOf(config["logLevel"] as String)
         val format = config["format"] as String
@@ -26,7 +31,7 @@ internal object ConfigurationParser {
                 else -> null
             }
         }
-
         return Configuration(logLevel, format, failIfList.filterNotNull().toTypedArray())
     }
+
 }
