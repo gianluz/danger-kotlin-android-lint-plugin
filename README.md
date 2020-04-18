@@ -8,7 +8,7 @@ Show the Android lint errors on your PR with [Danger Kotlin]
 
 Install and run [Danger Kotlin] as normal and in your `Dangerfile.df.kts` add the following dependency:
 ```kotlin
-@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.0.3")
+@file:DependsOn("com.gianluz:danger-kotlin-android-lint-plugin:0.1.0")
 ```
 Then register your plugin before the `danger` initialisation and use the plugin:
 ```kotlin
@@ -16,13 +16,41 @@ register plugin AndroidLint
 
 val danger = Danger(args)
 
+// Default report
 AndroidLint.report("/path/to/the/androidlint/result/file.xml")
 ```
 You can report more than one lint file.
 
-## Configuration
+You can also keep tidy your `DangerFile.df.kts` using the following block:
+```kotlin
+androidLint {
+    [...]
+}
+```
+Or make your own custom report by manipulating all the issues found, for example failing the build at the first `Fatal` found in a specific module.
+```kotlin
+androidLint {
+        // Fail for each Fatal in a single module
+        val moduleLintFilePaths = find(
+            moduleDir,
+            "lint-results-debug.xml",
+            "lint-results-release.xml"
+        ).toTypedArray()
 
-You can customise the aspect of your reports defining the configuration file `androidlint.dangerplugin.yml`
+        parseAllDistinct(*moduleLintFilePaths).forEach {
+            if(it.severity == "Fatal")
+                fail(
+                    "Danger lint check failed: ${it.message}", 
+                    it.location.file.replace(System.getProperty("user.dir"), ""), 
+                    Integer.parseInt(it.location.line)
+                )
+        }
+    }
+```
+
+## Configuration for the default report
+
+You can customise the aspect of your default reports defining the configuration file `androidlint.dangerplugin.yml`
 ```yaml
 logLevel: WARNING
 format: "{severity}: {message}"
